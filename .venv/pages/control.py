@@ -4,13 +4,11 @@ from pages.coins import CoinsPage
 from pages.sell import SellPage
 from pages.buy import BuyPage
 import json
-
+import time
 
 
 
 TIME_INTERVAL = client.KLINE_INTERVAL_15MINUTE
-
-
 class ControlPage():
 
     coin = CoinsPage()
@@ -18,7 +16,7 @@ class ControlPage():
     buy = BuyPage()
     
 
-    def validador_trade(self, moeda):
+    def validador_trade(self, moeda): 
             ultimo_trade = client.get_my_trades(symbol=f"{moeda}", limit=1)
             qtd = len(ultimo_trade)
 
@@ -40,6 +38,7 @@ class ControlPage():
 
     def get_monitoracao(self):
         try:
+            time.sleep(2)  
             MOEDA = self.coin.get_coin_pair()
             print(MOEDA)
             vl_coin = self.coin.get_value_current_coin(MOEDA)
@@ -50,21 +49,22 @@ class ControlPage():
             json_message = json.loads(s1)
             qtd = len(json_message)-1
             while cont <= qtd:
-                fechamento = float(json_message[cont][4].rstrip('0'))
-                list_fechamento.append(fechamento)
-                media = sum(list_fechamento)/qtd
-                cont+=1
-            if media > vl_coin and media > 20:
-                    variacao = float((media - vl_coin)/vl_coin*100)
-                    print(f'Tendência de alta: {variacao:.2f}%')
-                    self.validador_trade(MOEDA)
-                
-            if media < vl_coin:
-                    variacao = float((vl_coin - media)/media*100)
-                    print(f'Tendência de baixa: -{variacao:.2f}%')
-                    self.get_monitoracao()
+                    fechamento = float(json_message[cont][4].rstrip('0'))
+                    list_fechamento.append(fechamento)
+                    media = sum(list_fechamento)/qtd
+                    cont+=1
 
-            print(f"Moeda: {MOEDA}\nMédia: {media:.2f}\nValor Atual: {vl_coin}\nQuantidade: {qtd}")
+            if media > vl_coin and media > 2:
+                        variacao = float((media - vl_coin)/vl_coin*100)
+                        print(f'Tendência de alta: {variacao:.2f}%')
+                        self.validador_trade(MOEDA)
+                    
+            if media < vl_coin:
+                        variacao = float((vl_coin - media)/media*100)
+                        print(f'Tendência de baixa: -{variacao:.2f}%')
+                        self.get_monitoracao()
+
+           
         except:
             print('erro')
         finally:

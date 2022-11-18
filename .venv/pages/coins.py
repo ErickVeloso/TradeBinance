@@ -7,14 +7,13 @@ from env.keys import COIN_MAIN
 class CoinsPage():
 
     def get_coin_pair(self):
-        list_coins = ['BTCUSDT','ADAUSDT','GTCUSDT','XRPUSDT','CHZUSDT','MATICUSDT','KEYUSDT',
-        'OOKIUSDT','XLMUSDT','MBLUSDT','DOGEUSDT']
+        list_coins = ['BTCUSDT']
         pair = list_coins[random.randint(0,len(list_coins)-1)]
         return pair
 
     def get_value_current_coin(self, coin):
         ultimo_preco = client.get_orderbook_ticker(symbol=f'{coin}')
-        print(f"Valor atual da moeda: {ultimo_preco['bidPrice']}")
+        #print(f"Valor atual da moeda: {ultimo_preco['bidPrice']}")
         return float(ultimo_preco['bidPrice'])
 
     def get_main_coin_value(self):
