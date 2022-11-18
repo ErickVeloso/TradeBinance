@@ -1,5 +1,4 @@
 from env.keys import api_key_telegram, chat_id
-from pages.control import client
 from binance.enums import *
 from pages.coins import CoinsPage
 import requests
