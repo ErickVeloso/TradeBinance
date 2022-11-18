@@ -1,14 +1,14 @@
 import random
 import json
-from pages.control import client
+from env.keys import client
 from env.keys import COIN_MAIN
 
 
 class CoinsPage():
 
     def get_coin_pair(self):
-        list_coins = ['BTCUSDT','ADAUSDT','GTCUSDT','XRPUSDT','CHZUSDT','MATICUSDT','DEGOUSDT','KEYUSDT',
-        'OOKI/USDT','XLMUSDT','MBLUSDT','DOGEUSDT']
+        list_coins = ['BTCUSDT','ADAUSDT','GTCUSDT','XRPUSDT','CHZUSDT','MATICUSDT','KEYUSDT',
+        'OOKIUSDT','XLMUSDT','MBLUSDT','DOGEUSDT']
         pair = list_coins[random.randint(0,len(list_coins)-1)]
         return pair
 
@@ -44,12 +44,4 @@ class CoinsPage():
         att = qtd_decimal.rstrip('0').split('.')
         return len(att[1])
     
-    def list_assets_active(self):
-        list_coin_trading = []
-        d1 = client.get_exchange_info()
-        s1 = json.dumps(d1)
-        json_message = json.loads(s1)['symbols']
-        for coin_trading in json_message:
-            if coin_trading['status'] == 'TRADING':
-                print(coin_trading['symbol'])
-                return list_coin_trading
+

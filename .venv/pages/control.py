@@ -4,11 +4,11 @@ from pages.coins import CoinsPage
 from pages.sell import SellPage
 from pages.buy import BuyPage
 import json
-import json
 
 
 
-TIME_INTERVAL = client.KLINE_INTERVAL_1MINUTE
+
+TIME_INTERVAL = client.KLINE_INTERVAL_15MINUTE
 
 
 class ControlPage():
@@ -41,10 +41,11 @@ class ControlPage():
     def get_monitoracao(self):
         try:
             MOEDA = self.coin.get_coin_pair()
+            print(MOEDA)
             vl_coin = self.coin.get_value_current_coin(MOEDA)
             list_fechamento = []
             cont = 0
-            d1 = client.get_historical_klines(MOEDA, TIME_INTERVAL, '180 day ago UTC')
+            d1 = client.get_historical_klines(MOEDA, TIME_INTERVAL, '5 day ago UTC')
             s1 = json.dumps(d1)
             json_message = json.loads(s1)
             qtd = len(json_message)-1
@@ -54,20 +55,21 @@ class ControlPage():
                 media = sum(list_fechamento)/qtd
                 cont+=1
             if media > vl_coin and media > 20:
-                variacao = (media - vl_coin)/vl_coin*100
-                print(f'Tendência de alta: {variacao:.2f}%')
-                self.validador_trade(MOEDA)
+                    variacao = float((media - vl_coin)/vl_coin*100)
+                    print(f'Tendência de alta: {variacao:.2f}%')
+                    self.validador_trade(MOEDA)
                 
             if media < vl_coin:
-                variacao = float((vl_coin - media)/media*100)
-                print(f'Tendência de baixa: -{variacao:.2f}%')
-                
+                    variacao = float((vl_coin - media)/media*100)
+                    print(f'Tendência de baixa: -{variacao:.2f}%')
+                    self.get_monitoracao()
 
             print(f"Moeda: {MOEDA}\nMédia: {media:.2f}\nValor Atual: {vl_coin}\nQuantidade: {qtd}")
         except:
             print('erro')
         finally:
             self.get_monitoracao()
+
 
 
       
