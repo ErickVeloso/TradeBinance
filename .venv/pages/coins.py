@@ -7,7 +7,7 @@ from env.keys import COIN_MAIN
 class CoinsPage():
 
     def get_coin_pair(self):
-        list_coins = ['BTCUSDT']
+        list_coins = ['BTCUSDT','USDTBRL','BTCBRL', 'ETHUSDT','LTCUSDT']
         pair = list_coins[random.randint(0,len(list_coins)-1)]
         return pair
 

@@ -11,7 +11,7 @@ class BuyPage():
     def buy_coin(self, moeda, valor_de_venda):
         dec = self.coin.get_decimal_pressision(moeda)
         print(f"Verificando uma possível compra de: {moeda}")
-        comparative_value = float(valor_de_venda - (valor_de_venda*0.001))
+        comparative_value = float(valor_de_venda - (valor_de_venda*0.0025))
         print(f"Valor estimado para compra: {comparative_value:.5f}")
         brl_carteira = self.coin.get_main_coin_value()
         value_current_coin = self.coin.get_value_current_coin(moeda)
