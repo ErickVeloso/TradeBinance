@@ -8,7 +8,7 @@ import time
 
 
 
-TIME_INTERVAL = client.KLINE_INTERVAL_15MINUTE
+TIME_INTERVAL = client.KLINE_INTERVAL_1DAY
 class ControlPage():
 
     coin = CoinsPage()
@@ -44,7 +44,7 @@ class ControlPage():
             vl_coin = self.coin.get_value_current_coin(MOEDA)
             list_fechamento = []
             cont = 0
-            d1 = client.get_historical_klines(MOEDA, TIME_INTERVAL, '5 day ago UTC')
+            d1 = client.get_historical_klines(MOEDA, TIME_INTERVAL, '90 day ago UTC')
             s1 = json.dumps(d1)
             json_message = json.loads(s1)
             qtd = len(json_message)-1
@@ -62,7 +62,7 @@ class ControlPage():
             if media < vl_coin:
                         variacao = float((vl_coin - media)/media*100)
                         print(f'Tendência de baixa: -{variacao:.2f}%')
-                        self.get_monitoracao()
+                        self.validador_trade(MOEDA)
 
            
         except:

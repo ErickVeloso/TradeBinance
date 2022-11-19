@@ -9,7 +9,7 @@ class SellPage():
 
     def sell_coin(self, moeda, vl_gasto, valor_de_compra, quantidade):
             print(f"Verificando uma possível venda de: {moeda}")
-            sale_value = float(valor_de_compra + (valor_de_compra*0.0025))
+            sale_value = float(valor_de_compra + (valor_de_compra*0.001))
             print(f'Valor estimado de venda - {sale_value:.5f}\n\n')
             value_current = int(self.coin.get_value_current_coin(moeda))
             lucro = float((quantidade*value_current) - vl_gasto)
