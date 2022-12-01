@@ -44,7 +44,7 @@ class ControlPage():
             vl_coin = self.coin.get_value_current_coin(MOEDA)
             list_fechamento = []
             cont = 0
-            d1 = client.get_historical_klines(MOEDA, TIME_INTERVAL, '90 day ago UTC')
+            d1 = client.get_historical_klines(MOEDA, TIME_INTERVAL, '100 day ago UTC')
             s1 = json.dumps(d1)
             json_message = json.loads(s1)
             qtd = len(json_message)-1
@@ -59,7 +59,7 @@ class ControlPage():
                         print(f'Tendência de alta: {variacao:.2f}%')
                         self.validador_trade(MOEDA)
                     
-            if media < vl_coin:
+            elif media < vl_coin:
                         variacao = float((vl_coin - media)/media*100)
                         print(f'Tendência de baixa: -{variacao:.2f}%')
                         self.validador_trade(MOEDA)
@@ -69,6 +69,7 @@ class ControlPage():
             print('erro')
         finally:
             self.get_monitoracao()
+
 
 
 

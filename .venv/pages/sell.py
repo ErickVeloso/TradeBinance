@@ -7,9 +7,20 @@ class SellPage():
 
     coin = CoinsPage()
 
+    def fee_sell(self, moeda):
+        fee = 0
+        if moeda == 'BTCUSDT':
+            fee = 0.001
+        if moeda == 'LTCUSDT':
+            fee = 0.01
+        print(f"Taxa de venda para {moeda} é de: {fee}")
+        return fee
+
+
     def sell_coin(self, moeda, vl_gasto, valor_de_compra, quantidade):
+            fee = self.fee_sell(moeda)
             print(f"Verificando uma possível venda de: {moeda}")
-            sale_value = float(valor_de_compra + (valor_de_compra*0.001))
+            sale_value = float(valor_de_compra + (valor_de_compra*fee))
             print(f'Valor estimado de venda - {sale_value:.5f}\n\n')
             value_current = int(self.coin.get_value_current_coin(moeda))
             lucro = float((quantidade*value_current) - vl_gasto)
