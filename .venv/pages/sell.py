@@ -10,10 +10,9 @@ class SellPage():
     def fee_sell(self, moeda):
         fee = 0
         if moeda == 'BTCUSDT':
-            fee = 0.001
-        if moeda == 'LTCUSDT':
-            fee = 0.01
-        print(f"Taxa de venda para {moeda} é de: {fee}")
+            fee = 0.00005
+        if moeda != 'BTCUSDT':
+            fee = 0.005
         return fee
 
 
