@@ -11,9 +11,9 @@ class BuyPage():
     def fee_buy(self, moeda):
         fee = 0
         if moeda == 'BTCUSDT':
-            fee = 0.005
+            fee = 0.0005
         if moeda != 'BTCUSDT':
-            fee = 0.008
+            fee = 0.005
         return fee
 
     def buy_coin(self, moeda, valor_de_venda):
@@ -41,7 +41,7 @@ class BuyPage():
                 )
                 compra = True
                 if compra == True:
-                        mensagem = f"🟢 ORDEM DE COMPRA 🟢\nCompra de {moeda} efetuada.\nValor de Compra: R$ {value_current_coin:.5f}\nDólar na carteira: R$ {coin_wallet:.5f}\n💸 Valor gasto R$ {valor_gasto:.5f}"
+                        mensagem = f"🟢 ORDEM DE COMPRA 🟢\nCompra de {moeda} efetuada.\nValor de Compra: U$ {value_current_coin:.5f}\nDólar na carteira: U$ {coin_wallet:.5f}\n💸 Valor gasto U$ {valor_gasto:.5f}"
                         url = f'https://api.telegram.org/bot{api_key_telegram}/sendMessage?chat_id={chat_id}&text={mensagem}'
                         requests.get(url)
     

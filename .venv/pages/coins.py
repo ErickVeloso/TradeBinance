@@ -8,14 +8,13 @@ class CoinsPage():
     
 
     def get_coin_pair(self):
-        list_coins = ['BTCUSDT','ADAUSDT','XRPUSDT','CHZUSDT','XTZUSDT','ZILUSDT','DOTUSDT','XLMUSDT','VETUSDT','FTMUSDT','ETHUSDT','LTCUSDT',
-            'BNBUSDT','MATICUSDT','AVAXUSDT','LINKUSDT','REEFUSDT']
+        list_coins = ['BTCUSDT']
         pair = list_coins[random.randint(0,len(list_coins)-1)]
         return pair
 
     def get_value_current_coin(self, coin):
         ultimo_preco = client.get_orderbook_ticker(symbol=f'{coin}')
-        print(f"Valor atual da moeda: {ultimo_preco['bidPrice']}")
+        print(f"Moeda: {coin}\nValor atual da moeda: {ultimo_preco['bidPrice']}")
         return float(ultimo_preco['bidPrice'])
 
     def get_main_coin_value(self):
@@ -41,7 +40,7 @@ class CoinsPage():
         d1 = client.get_symbol_info(symbol=f'{par}')
         s1 = json.dumps(d1)
         json_message = json.loads(s1)
-        qtd_decimal = json_message['filters'][2]['minQty']
+        qtd_decimal = json_message['filters'][1]['minQty']
         att = qtd_decimal.rstrip('0').split('.')
         return len(att[1])
     

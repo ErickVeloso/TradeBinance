@@ -10,7 +10,7 @@ class SellPage():
     def fee_sell(self, moeda):
         fee = 0
         if moeda == 'BTCUSDT':
-            fee = 0.00005
+            fee = 0.0005
         if moeda != 'BTCUSDT':
             fee = 0.005
         return fee
@@ -40,3 +40,5 @@ class SellPage():
                     mensagem = f"🔴 ORDEM DE VENDA 🔴\nVenda de {moeda} efetuada\nValor de venda: {value_current:.5f}\nQuantidade vendida: {quantidade:.5f}\nLucro: {lucro:.5f} 💰"
                     url = f'https://api.telegram.org/bot{api_key_telegram}/sendMessage?chat_id={chat_id}&text={mensagem}'
                     requests.get(url)
+
+            
