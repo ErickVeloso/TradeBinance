@@ -20,18 +20,11 @@ class ControlPage():
     def validador_trade(self, moeda):
         #try:
             time.sleep(5)
-            variacao_med = self.get_variacao(moeda)
-
-            if moeda not in self.list_coins:
-                print('Moeda sem histórico de compra/venda')
-                self.list_coins.append(moeda)
-                print(f'Lista atualizada: {self.list_coins}')
-                self.buy.buy_new_coin(moeda)
-                
+            variacao_med = self.get_variacao(moeda)               
             ultimo_trade = client.get_my_trades(symbol=f"{moeda}", limit=1)
             qtd = len(ultimo_trade)
             for ultimas_compras in ultimo_trade:
-                if ultimas_compras['isBuyer'] == False and moeda in self.list_coins and variacao_med > 3:
+                if ultimas_compras['isBuyer'] == False and moeda in self.list_coins and variacao_med > 0.5:
                     valor_de_venda = float(ultimas_compras['price'])
                     self.buy.buy_coin(moeda, valor_de_venda)
 
@@ -41,7 +34,10 @@ class ControlPage():
                     quantidade = float(ultimas_compras['qty'])
                     self.sell.sell_coin(moeda, vl_gasto, valor_de_compra, quantidade)
 
-                if qtd == 0 and moeda not in self.list_coins and variacao_med > 3:
+                if moeda not in self.list_coins and variacao_med > 0.5:
+                    print('Moeda sem histórico de compra/venda')
+                    self.list_coins.append(moeda)
+                    print(f'Lista atualizada: {self.list_coins}')
                     self.buy.buy_new_coin(moeda)
     
     def get_variacao(self, moeda):

@@ -9,10 +9,18 @@ class SellPage():
 
     def fee_sell(self, moeda):
         fee = 0
-        if moeda == 'BTCUSDT':
+        if moeda == 'ADABRL':
             fee = 0.0005
-        if moeda != 'BTCUSDT':
+        if moeda == 'MANABRL':
+            fee = 0.0005
+        if moeda == 'SHIBBRL':
+            fee = 0.0005
+        if moeda == 'DOGEBRL':
             fee = 0.005
+        if moeda == 'GALABRL':
+            fee = 0.0005
+        if moeda == 'SANDBRL':
+            fee = 0.0005
         return fee
 
 
