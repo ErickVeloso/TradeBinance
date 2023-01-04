@@ -8,7 +8,7 @@ class CoinsPage():
     
 
     def get_coin_pair(self):
-        list_coins = ['ADABRL','SHIBBRL','DOGEBRL','CHZBRL','GALABRL','SANDBRL']
+        list_coins = ['BTCUSDT','ALGOUSDT','SPELLUSDT','LUNCUSDT','ZILUSDT','SANDUSDT']
         pair = list_coins[random.randint(0,len(list_coins)-1)]
         return pair
 
@@ -18,13 +18,26 @@ class CoinsPage():
         return float(ultimo_preco['bidPrice'])
 
     def get_main_coin_value(self):
+        money = 0
         info = client.get_account()
         for lista_ativos in info["balances"]:
             if lista_ativos["asset"] == f'{COIN_MAIN}':
                 coin = lista_ativos["asset"] 
                 value_coin = float(lista_ativos['free'])
                 print(f"Quantidade de {coin} na carteira: U$ {value_coin:.5f}\n\n")
-                return value_coin * 0.99
+                if value_coin > 300:
+                    money = value_coin * 0.20
+                if value_coin > 250 and value_coin <= 300:
+                    money = value_coin * 0.25
+                if value_coin > 200 and value_coin <= 250:
+                    money = value_coin * 0.30
+                if value_coin > 150 and value_coin <= 200:
+                    money = value_coin * 0.35
+                if value_coin > 100 and value_coin <= 150:
+                    money = value_coin * 0.40
+                if value_coin > 15 and value_coin <= 100:
+                    money = value_coin
+                return money
     
     def get_qtd_asset_wallet(self, coin):
         info = client.get_account()
